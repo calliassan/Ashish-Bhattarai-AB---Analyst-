@@ -1,95 +1,36 @@
-MENU = {
-    "espresso": {
-        "ingredients": {
-            "water": 50,
-            "coffee": 18,
-        },
-        "cost": 1.5,
-    },
-    "latte": {
-        "ingredients": {
-            "water": 200,
-            "milk": 150,
-            "coffee": 24,
-        },
-        "cost": 2.5,
-    },
-    "cappuccino": {
-        "ingredients": {
-            "water": 250,
-            "milk": 100,
-            "coffee": 24,
-        },
-        "cost": 3.0,
-    }
-}
+# import colorgram
+# rgb_colors = []
+# colors = colorgram.extract('download.jpeg', 16)
+# for color in colors:
+#     r = color.rgb.r
+#     g = color.rgb.g
+#     b = color.rgb.b
+#     new_color = (r, g, b)
+#     rgb_colors.append(new_color)
+# print(rgb_colors)
+import turtle
+import random
+tim = turtle.Turtle()
+turtle.colormode(255)
 
-profit = 0
-resources = {
-    "water": 300,
-    "milk": 200,
-    "coffee": 100,
-}
-turn_off = False
-# TODO while loop
-
-def is_resource_sufficient(order_ingredients):
-    for item in order_ingredients:
-        if order_ingredients[item] >= resources[item]:
-            print(f"sorry there is not enough {item}")
-            return False
-    return True
-
-def process_coins():
-    """Returns the total calculated"""
-    print("please insert coins")
-    total = int(input("how many quarters? ")) * 0.25
-    total += int(input("how many dimes? ")) * 0.1
-    total += int(input("how many nickles")) * 0.85
-    total += int(input("how many pennies")) * 0.01
-    return total
-
-def is_transaction_successful(money_received, drink_cost):
-    if money_received >= drink_cost:
-        change = round(money_received - drink_cost, 2)
-        print(f"here is change{change}")
-        global profit
-        profit += drink_cost
-        return True
-    else:
-        print("sorry that's not enough money. Money refunded")
-        return False
-def make_coffee(drink_name, order_ingredients):
-    for item in order_ingredients:
-        resources[item] -= order_ingredients[item]
-    print(f"here is your {drink_name}")
+tim.penup()
+tim.hideturtle()
+color_list = [(246, 242, 234), (248, 241, 245), (239, 247, 242), (239, 242, 247), (197, 165, 117), (142, 80, 56), (220, 201, 137), (59, 94, 119), (164, 152, 53), (136, 162, 181), (131, 34, 22), (69, 39, 32), (53, 117, 86), (192, 95, 78), (146, 177, 149), (19, 91, 68)]
+tim.setheading(225)
+tim.forward(300)
+tim.setheading(0)
+number_of_dots = 100
+for dot_count in range(1, number_of_dots + 1):
+    tim.dot(20, random.choice(color_list))
+    tim.forward(50)
+    if dot_count % 10 == 0:
+        tim.setheading(90)
+        tim.forward(50)
+        tim.setheading(180)
+        tim.forward(500) #10 * 50 spaces
+        tim.setheading(0)
 
 
 
-is_on = True
-while is_on:
-    user = input("what would you like? 'espresso' or 'latte' or 'cappuccino'")
-    if user == "off":
-        is_on = False
-    elif user == "Report":
-        for key, value in resources.items():
-            print(f"{key}: {value}")
-    else:
-        drink = MENU[user]
-        if is_resource_sufficient(drink["ingredients"]):
-            payment = process_coins()
-            if is_transaction_successful(payment, drink["cost"]):
-                make_coffee(user, drink["ingredients"])
-
-
-
-
-
-
-
-
-
-
-
-
-
+screen = turtle.Screen()
+screen.exitonclick()
